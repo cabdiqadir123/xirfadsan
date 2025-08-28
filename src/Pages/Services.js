@@ -41,7 +41,7 @@ function Services() {
 
     const fetch_service = async () => {
         try {
-            const response = await fetch('/api/services/all');
+            const response = await fetch('https://back-end-for-xirfadsan.onrender.com/api/services/all');
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             setservices(data);
@@ -96,7 +96,7 @@ function Services() {
 
         try {
             // Send to server
-            const response = await axios.post('/api/services/add', formData, {
+            const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/services/add', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
@@ -144,7 +144,7 @@ function Services() {
         setisloadingUpdateBTN(true);
 
         try {
-            await axios.put(`/api/services/update/${selectedrowid}`, formData, {
+            await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/services/update/${selectedrowid}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
@@ -222,7 +222,7 @@ function Services() {
                         <div id='form-rows' className='row'>
                             <div className='col-6'>
                                 {selectedrowid === "" ? <img src={images} alt='' width={50} height={50} /> : <img
-                                    src={`api/services/image/${selectedrowid}`}
+                                    src={`https://back-end-for-xirfadsan.onrender.com/api/services/image/${selectedrowid}`}
                                     width={120}
                                     height={120}
                                     alt=''
@@ -230,7 +230,7 @@ function Services() {
                             </div>
                             <div className='col-6'>
                                 {selectedrowid === "" ? <img src={image} alt='' width={50} height={50} /> : <img
-                                    src={`api/services/secondry_image/${selectedrowid}`}
+                                    src={`https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${selectedrowid}`}
                                     width={120}
                                     height={120}
                                     alt=''
@@ -283,8 +283,8 @@ function Services() {
                                         <tr key={item.service_id}>
                                             <td>{item.service_id}</td>
                                             <td>{item.name}</td>
-                                            <td><img src={item.imageUrl || `/api/services/image/${item.service_id}`} width={70} alt="" /></td>
-                                            <td><img src={item.secondryImageUrl || `/api/services/secondry_image/${item.service_id}`} width={70} alt="" /></td>
+                                            <td><img src={item.imageUrl || `https://back-end-for-xirfadsan.onrender.com/api/services/image/${item.service_id}`} width={70} alt="" /></td>
+                                            <td><img src={item.secondryImageUrl || `https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${item.service_id}`} width={70} alt="" /></td>
                                             <td>{item.created_at}</td>
                                             <td>
                                                 <button onClick={() => {
@@ -299,7 +299,7 @@ function Services() {
                                                     setservices(prev => prev.filter(s => s.service_id !== id));
                                                     setTempServices(prev => prev.filter(s => s.service_id !== id));
                                                     try {
-                                                        await axios.post('/api/services/delete', { service_id: id });
+                                                        await axios.post('https://back-end-for-xirfadsan.onrender.com/api/services/delete', { service_id: id });
                                                     } catch (err) {
                                                         alert("Failed to delete");
                                                         fetch_service();
@@ -392,7 +392,7 @@ function Services() {
                                     <div id='form-rows' className='row'>
                                         <div className='col-6'>
                                             {selectedrowid === "" ? <img src={images} alt='' width={50} height={50} /> : <img
-                                                src={`api/services/image/${selectedrowid}`}
+                                                src={`https://back-end-for-xirfadsan.onrender.com/api/services/image/${selectedrowid}`}
                                                 width={120}
                                                 height={120}
                                                 alt=''
@@ -400,7 +400,7 @@ function Services() {
                                         </div>
                                         <div className='col-6'>
                                             {selectedrowid === "" ? <img src={image} alt='' width={50} height={50} /> : <img
-                                                src={`api/services/secondry_image/${selectedrowid}`}
+                                                src={`https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${selectedrowid}`}
                                                 width={120}
                                                 height={120}
                                                 alt=''

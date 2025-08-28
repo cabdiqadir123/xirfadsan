@@ -35,7 +35,7 @@ function Units() {
 
 
     const fetchdata = async () => {
-        fetch('/api/units/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/units/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -58,7 +58,7 @@ function Units() {
 
     const handler = async (e) => {
         try {
-            await axios.post("/api/units/add", {
+            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/units/add", {
                 name,
                 ismultiple
             });
@@ -159,7 +159,7 @@ function Units() {
                                             <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                             <button onClick={async (e) => {
                                                 const unit_id = item.unit_id;
-                                                await axios.post("/api/units/delete", {
+                                                await axios.post("https://back-end-for-xirfadsan.onrender.com/api/units/delete", {
                                                     unit_id
                                                 });
                                                 fetchdata();

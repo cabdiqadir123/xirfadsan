@@ -62,13 +62,13 @@ function SendNotificaion() {
 
     const [userdata, setuserdata] = useState([]);
     const fetch_userdata_data = async (id) => {
-        const rptdata = await axios.get("/api/user/userrole/all/" + id);
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/user/userrole/all/" + id);
         const resltdata = rptdata.data;
         setuserdata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/notification/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/notification/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -118,7 +118,7 @@ function SendNotificaion() {
     const Send_notificaion_function = async (e) => {
         if (usertoken !== "") {
             try {
-                const response = await fetch('/api/send/send-data', { // change to your actual backend URL
+                const response = await fetch('https://back-end-for-xirfadsan.onrender.com/api/send/send-data', { // change to your actual backend URL
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ function SendNotificaion() {
             }
         } else {
             try {
-                const response = await fetch('/api/send/send-data-to-all', { // change to your actual backend URL
+                const response = await fetch('https://back-end-for-xirfadsan.onrender.com/api/send/send-data-to-all', { // change to your actual backend URL
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ function SendNotificaion() {
     const handler = async (e) => {
         Send_notificaion_function();
         try {
-            await axios.post("api/notification/add", {
+            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/notification/add", {
                 from_type,
                 from_id,
                 recipient_role,
@@ -304,7 +304,7 @@ function SendNotificaion() {
                                                 <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                                 <button onClick={async (e) => {
                                                     const notification_id = item.notification_id;
-                                                    await axios.post("/api/notification/delete", {
+                                                    await axios.post("https://back-end-for-xirfadsan.onrender.com/api/notification/delete", {
                                                         notification_id
                                                     });
                                                     fetchdata();

@@ -15,7 +15,7 @@ function SupplierDash() {
 
     const fetch_setbooking_data_to_chart = async () => {
         try {
-            const response = await axios.get('api/booking/all');
+            const response = await axios.get('https://back-end-for-xirfadsan.onrender.com/api/booking/all');
             const bookings = response.data;
 
             const preparedData = bookings.map((item) => {
@@ -84,14 +84,14 @@ function SupplierDash() {
 
     const [booking, setbooking] = useState([]);
     const fetch_setbooking_data = async () => {
-        const rptdata = await axios.get("api/booking/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/booking/all");
         const resltdata = rptdata.data;
         setbooking(resltdata);
     };
 
     const [customer, setcustomer] = useState([]);
     const fetch_customer_data = async () => {
-        const rptdata = await axios.get("api/user/customer/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/user/customer/all");
         const resltdata = rptdata.data;
         setcustomer(resltdata);
     };
@@ -105,28 +105,28 @@ function SupplierDash() {
 
     const [pending, setpending] = useState([]);
     const fetch_pending_data = async () => {
-        const rptdata = await axios.get("api/booking/pending/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/booking/pending/all");
         const resltdata = rptdata.data;
         setpending(resltdata);
     };
 
     const [process, setprocess] = useState([]);
     const fetch_process_data = async () => {
-        const rptdata = await axios.get("api/booking/process/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/booking/process/all");
         const resltdata = rptdata.data;
         setprocess(resltdata);
     };
 
     const [completed, setcompleted] = useState([]);
     const fetch_completed_data = async () => {
-        const rptdata = await axios.get("api/booking/finished/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/booking/finished/all");
         const resltdata = rptdata.data;
         setcompleted(resltdata);
     };
 
     const [cancelled, setcancelled] = useState([]);
     const fetch_cancelled_data = async () => {
-        const rptdata = await axios.get("api/booking/cancelled/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/booking/cancelled/all");
         const resltdata = rptdata.data;
         setcancelled(resltdata);
     };

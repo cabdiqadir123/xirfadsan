@@ -33,7 +33,7 @@ function PrivacyAndPolicy() {
 
 
     const fetchdata = async () => {
-        fetch('/api/privacy/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/privacy/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -71,7 +71,7 @@ function PrivacyAndPolicy() {
         setisloadingBTN(true);
 
         try {
-            await axios.post("/api/privacy/add", {
+            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/privacy/add", {
                 privacy_policy,
             });
 
@@ -104,7 +104,7 @@ function PrivacyAndPolicy() {
         setisloadingUpdateBTN(true);
         try {
             const response = await axios.put(
-                `api/privacy/update/${selectedrowid}`,
+                `https://back-end-for-xirfadsan.onrender.com/api/privacy/update/${selectedrowid}`,
                 { privacy_policy },
                 { headers: { "Content-Type": "application/json" } }
             );

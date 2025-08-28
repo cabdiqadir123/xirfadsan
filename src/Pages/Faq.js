@@ -45,7 +45,7 @@ function Faq() {
   }
 
   const fetchdata = async () => {
-    fetch('/api/faq/all')
+    fetch('https://back-end-for-xirfadsan.onrender.com/api/faq/all')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -98,7 +98,7 @@ function Faq() {
     setisloadingBTN(true);
 
     try {
-      await axios.post("/api/faq/add", { question, answer });
+      await axios.post("https://back-end-for-xirfadsan.onrender.com/api/faq/add", { question, answer });
 
       fetchdata();
       setisloadingBTN(false);
@@ -131,7 +131,7 @@ function Faq() {
     setisloadingUpdateBTN(true);
     try {
       const response = await axios.put(
-        `/api/faq/update/${selectedrowid}`,
+        `https://back-end-for-xirfadsan.onrender.com/api/faq/update/${selectedrowid}`,
         { question, answer },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -249,7 +249,7 @@ function Faq() {
 
                             try {
                               // 2. Fire both deletes in parallel
-                              await axios.post("api/faq/delete", {
+                              await axios.post("https://back-end-for-xirfadsan.onrender.com/api/faq/delete", {
                                 faq_id
                               });
                               fetchdata();

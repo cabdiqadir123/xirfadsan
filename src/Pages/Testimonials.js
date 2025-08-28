@@ -45,7 +45,7 @@ function Testimonials() {
   }
 
   const fetchdata = async () => {
-    fetch('/api/testimonial/all')
+    fetch('https://back-end-for-xirfadsan.onrender.com/api/testimonial/all')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -112,7 +112,7 @@ function Testimonials() {
     setisloadingBTN(true);
 
     try {
-      const response = await axios.post("/api/testimonial/add", formData, {
+      const response = await axios.post("https://back-end-for-xirfadsan.onrender.com/api/testimonial/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -168,7 +168,7 @@ function Testimonials() {
     setisloadingUpdateBTN(true);
 
     try {
-      await axios.put(`/api/testimonial/update/${selectedrowid}`, formData, {
+      await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/testimonial/update/${selectedrowid}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -281,7 +281,7 @@ function Testimonials() {
                     <td>{item.description}</td>
                     <td>
                       <img
-                        src={`/api/testimonial/image/${item.testimonial_id}`}
+                        src={`https://back-end-for-xirfadsan.onrender.com/api/testimonial/image/${item.testimonial_id}`}
                         width={70} alt=''
                       />
                     </td>
@@ -303,7 +303,7 @@ function Testimonials() {
 
                             try {
                               // 2. Fire both deletes in parallel
-                              await axios.post("/api/testimonial/delete", {
+                              await axios.post("https://back-end-for-xirfadsan.onrender.com/api/testimonial/delete", {
                                 testimonial_id
                               });
                               fetchdata();

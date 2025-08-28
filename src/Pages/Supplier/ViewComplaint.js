@@ -29,7 +29,7 @@ function ViewComplaint() {
   }
 
   const fetchdata = async () => {
-    fetch('/api/complaint/all')
+    fetch('https://back-end-for-xirfadsan.onrender.com/api/complaint/all')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

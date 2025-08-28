@@ -33,20 +33,20 @@ function Bookings() {
 
     const [cusomerdata, setcusomerdata] = useState([]);
     const fetch_customer_data = async () => {
-        const rptdata = await axios.get("/api/user/customer/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/user/customer/all");
         const resltdata = rptdata.data;
         setcusomerdata(resltdata);
     };
 
     const [staffdata, setstaffdata] = useState([]);
     const fetch_staff_data = async () => {
-        const rptdata = await axios.get("/api/staff/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/staff/all");
         const resltdata = rptdata.data;
         setstaffdata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/booking/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/booking/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

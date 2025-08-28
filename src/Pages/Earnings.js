@@ -34,13 +34,13 @@ function Earnings() {
 
     const [staffdata, setstaffdata] = useState([]);
     const fetch_staff_data = async () => {
-        const rptdata = await axios.get("/api/staff/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/staff/all");
         const resltdata = rptdata.data;
         setstaffdata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/earning/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/earning/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

@@ -45,7 +45,7 @@ function Blog() {
     }
 
     const fetchdata = async () => {
-        fetch('/api/blog/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/blog/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -108,7 +108,7 @@ function Blog() {
         setisloadingBTN(true);
 
         try {
-            const response = await axios.post('/api/blog/add', formData, {
+            const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/blog/add', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             console.log(response);
@@ -157,7 +157,7 @@ function Blog() {
         try {
             setisloadingUpdateBTN(true);
 
-            const response = await axios.put(`api/blog/update/${selectedrowid}`, formData, {
+            const response = await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/blog/update/${selectedrowid}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -270,7 +270,7 @@ function Blog() {
                                         <td>{item.blog}</td>
                                         <td>
                                             <img
-                                                src={item.imageUrl ? item.imageUrl : `api/blog/image/${item.id}`} // Use temp image if exists
+                                                src={item.imageUrl ? item.imageUrl : `https://back-end-for-xirfadsan.onrender.com/api/blog/image/${item.id}`} // Use temp image if exists
                                                 width={70} alt=''
                                             />
                                         </td>
@@ -298,7 +298,7 @@ function Blog() {
                                                         setdata((prev) => prev.filter((s) => s.id !== id));
 
                                                         try {
-                                                            await axios.post("/api/blog/delete", { id });
+                                                            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/blog/delete", { id });
                                                         } catch (error) {
                                                             console.error("Failed to delete blog:", error);
                                                             fetchdata();

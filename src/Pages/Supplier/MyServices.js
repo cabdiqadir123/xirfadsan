@@ -23,7 +23,7 @@ function MyServices() {
 
     const fetch_service_data = async () => {
         const storeduserID = localStorage.getItem('userID');
-        fetch("api/services/getbyservice/all/"+storeduserID)
+        fetch("https://back-end-for-xirfadsan.onrender.com/api/services/getbyservice/all/"+storeduserID)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -42,7 +42,7 @@ function MyServices() {
 
     const fetch_subservice = async () => {
         const storeduserID = localStorage.getItem('userID');
-        fetch("api/subservices/getsupplier/all/" + storeduserID)
+        fetch("https://back-end-for-xirfadsan.onrender.com/api/subservices/getsupplier/all/" + storeduserID)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -100,7 +100,7 @@ function MyServices() {
                     {servicedata.map((item) => (
                         <div className='d-box-1' style={{ background: item.color }}>
                             <img
-                                src={`api/services/image/${item.service_id}`}
+                                src={`https://back-end-for-xirfadsan.onrender.com/api/services/image/${item.service_id}`}
                                 width={50} alt=''
                             />
                             <h4>{item.name}</h4>
@@ -144,7 +144,7 @@ function MyServices() {
                                             <td>{item.service_id}</td>
                                             <td>
                                                 <img
-                                                    src={`/api/subservices/image/${item.sub_service_id}`}
+                                                    src={`https://back-end-for-xirfadsan.onrender.com/api/subservices/image/${item.sub_service_id}`}
                                                     width={50} alt=''
                                                 />
                                             </td>
@@ -153,7 +153,7 @@ function MyServices() {
                                                     <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                                     <button onClick={async (e) => {
                                                         const sub_service_id = item.sub_service_id;
-                                                        await axios.post("/api/subservices/delete", {
+                                                        await axios.post("https://back-end-for-xirfadsan.onrender.com/api/subservices/delete", {
                                                             sub_service_id
                                                         });
                                                         fetch_subservice();

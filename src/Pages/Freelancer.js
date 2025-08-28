@@ -45,20 +45,20 @@ function Freelancer() {
 
     const [sub_servicedata, setsub_servicedata] = useState([]);
     const fetch_subservice_data = async () => {
-        const rptdata = await axios.get("/api/subservices/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/subservices/all");
         const resltdata = rptdata.data;
         setsub_servicedata(resltdata);
     };
 
     const [supplierdata, setsupplierdata] = useState([]);
     const fetch_supplier_data = async () => {
-        const rptdata = await axios.get("/api/supplier/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/supplier/all");
         const resltdata = rptdata.data;
         setsupplierdata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/freelancer/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/freelancer/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -101,7 +101,7 @@ function Freelancer() {
             if (!num.test(phone)) {
                 alert("Tell text-flied only allawed for number ")
             } else {
-                const response = await axios.post('/api/user/add', formData, {
+                const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/user/add', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -124,7 +124,7 @@ function Freelancer() {
             } else {
                 setuser_id(name);
                 alert(name);
-                await axios.post("/api/freelancer/add", {
+                await axios.post("https://back-end-for-xirfadsan.onrender.com/api/freelancer/add", {
                     name,
                     supplier_id,
                     sub_service_id
@@ -260,7 +260,7 @@ function Freelancer() {
                                     <td>{item.freelancer_id}</td>
                                     <td>
                                         <img
-                                            src={`/api/freelancer/image/${item.user_id}`}
+                                            src={`https://back-end-for-xirfadsan.onrender.com/api/freelancer/image/${item.user_id}`}
                                             width={70} alt=''
                                         />
                                     </td>
@@ -282,7 +282,7 @@ function Freelancer() {
                                             <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                             <button onClick={async (e) => {
                                                 const freelancer_id = item.freelancer_id;
-                                                await axios.post("/api/freelancer/delete", {
+                                                await axios.post("https://back-end-for-xirfadsan.onrender.com/api/freelancer/delete", {
                                                     freelancer_id
                                                 });
                                                 fetchdata();

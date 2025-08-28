@@ -36,7 +36,7 @@ function SpecialOffers() {
 
         try {
             // 2. API call
-            await axios.post("/api/discount/delete", { id });
+            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/discount/delete", { id });
         } catch (error) {
             console.error("Delete failed, rolling back:", error);
             // 3. Rollback on failure
@@ -64,13 +64,13 @@ function SpecialOffers() {
 
     const [sub_servicedata, setsub_servicedata] = useState([]);
     const fetch_subservice_data = async () => {
-        const rptdata = await axios.get("/api/subservices/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/subservices/all");
         const resltdata = rptdata.data;
         setsub_servicedata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/discount/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/discount/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -147,7 +147,7 @@ function SpecialOffers() {
         setisloadingBTN(true);
 
         try {
-            await axios.post("/api/discount/add", formData, {
+            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/discount/add", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -199,7 +199,7 @@ function SpecialOffers() {
 
         try {
             setisloadingUpdateBTN(true);
-            const response = await axios.put(`api/discount/update/${selectedrowid}`, formData, {
+            const response = await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/discount/update/${selectedrowid}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -345,7 +345,7 @@ function SpecialOffers() {
                                         <td>{item.per}</td>
                                         <td>
                                             <img
-                                                src={item.imageUrl || `/api/discount/image/${item.id || item.id}`}
+                                                src={item.imageUrl || `https://back-end-for-xirfadsan.onrender.com/api/discount/image/${item.id || item.id}`}
                                                 width={70} alt=''
                                             />
                                         </td>

@@ -7,7 +7,7 @@ const NotifySender = () => {
 
   const handleSendNotification = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/send/send-data', { // change to your actual backend URL
+      const response = await fetch('https://back-end-for-xirfadsan.onrender.com/api/send/send-data', { // change to your actual backend URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

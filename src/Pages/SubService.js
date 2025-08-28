@@ -61,13 +61,13 @@ function SubService() {
     const [servicedata, setservicedata] = useState([]);
 
     const fetch_service_data = async () => {
-        const rptdata = await axios.get("/api/services/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/services/all");
         const resltdata = rptdata.data;
         setservicedata(resltdata);
     };
 
     const fetch_subservice = async () => {
-        fetch('/api/subservices/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/subservices/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -165,7 +165,7 @@ function SubService() {
         setisloadingBTN(true);
 
         try {
-            await axios.post('/api/subservices/add', formData, {
+            await axios.post('https://back-end-for-xirfadsan.onrender.com/api/subservices/add', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
@@ -227,7 +227,7 @@ function SubService() {
         setisloadingUpdateBTN(true);
 
         try {
-            await axios.put(`/api/subservices/update/${selectedrowid}`, formData, {
+            await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/subservices/update/${selectedrowid}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
@@ -425,7 +425,7 @@ function SubService() {
                                                 <td>{item.service_id}</td>
                                                 <td>
                                                     <img
-                                                        src={`api/subservices/image/${item.sub_service_id}`}
+                                                        src={`https://back-end-for-xirfadsan.onrender.com/api/subservices/image/${item.sub_service_id}`}
                                                         width={70} alt=''
                                                     />
                                                 </td>
@@ -460,7 +460,7 @@ function SubService() {
 
                                                                 try {
                                                                     // 2. Send delete request
-                                                                    await axios.post("/api/subservices/delete", { sub_service_id });
+                                                                    await axios.post("https://back-end-for-xirfadsan.onrender.com/api/subservices/delete", { sub_service_id });
                                                                 } catch (error) {
                                                                     console.error("Failed to delete sub-service:", error);
 

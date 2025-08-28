@@ -54,13 +54,13 @@ function Suplier() {
 
     const [servicedata, setservicedata] = useState([]);
     const fetch_service_data = async () => {
-        const rptdata = await axios.get("/api/services/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/services/all");
         const resltdata = rptdata.data;
         setservicedata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/supplier/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/supplier/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -145,12 +145,12 @@ function Suplier() {
 
         try {
             // Add user
-            const response = await axios.post('api/user/add', formData, {
+            const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/user/add', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
             // Add supplier
-            await axios.post('api/supplier/add', { name, service_id });
+            await axios.post('https://back-end-for-xirfadsan.onrender.com/api/supplier/add', { name, service_id });
 
             fetchdata(); // Refresh table
             setTempSuppliers([]); // Clear temp
@@ -209,12 +209,12 @@ function Suplier() {
 
         try {
             // Update user
-            const response = await axios.put(`api/user/update/${user_id}`, formData, {
+            const response = await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/user/update/${user_id}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
 
             // Update supplier service
-            await axios.put(`/api/supplier/update/${selectedrowid}`, { service_id });
+            await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/supplier/update/${selectedrowid}`, { service_id });
 
             fetchdata(); // Refresh table from server
             sethideform(false);
@@ -236,7 +236,7 @@ function Suplier() {
         ));
 
         try {
-            await axios.put(`/api/user/status/${user_id}`, { status: newStatus }, {
+            await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/user/status/${user_id}`, { status: newStatus }, {
                 headers: { 'Content-Type': 'application/json' }
             });
             // Optionally refetch only if needed
@@ -390,7 +390,7 @@ function Suplier() {
                                         <td>{item.supplier_id}</td>
                                         <td>
                                             <img
-                                                src={item.imageUrl || `/api/supplier/image/${item.user_id}`}
+                                                src={item.imageUrl || `https://back-end-for-xirfadsan.onrender.com/api/supplier/image/${item.user_id}`}
                                                 width={70} alt=''
                                             />
                                         </td>
@@ -436,8 +436,8 @@ function Suplier() {
                                                         try {
                                                             // 2. Fire both deletes in parallel
                                                             await Promise.all([
-                                                                axios.post("/api/supplier/delete", { supplier_id }),
-                                                                axios.post("/api/user/delete", { id: user_id }),
+                                                                axios.post("https://back-end-for-xirfadsan.onrender.com/api/supplier/delete", { supplier_id }),
+                                                                axios.post("https://back-end-for-xirfadsan.onrender.com/api/user/delete", { id: user_id }),
                                                             ]);
                                                         } catch (error) {
                                                             console.error("Delete failed:", error);

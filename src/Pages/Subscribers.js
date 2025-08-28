@@ -19,7 +19,7 @@ function Subscribers() {
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const fetchdata = async () => {
-    fetch('/api/subscriber/all')
+    fetch('https://back-end-for-xirfadsan.onrender.com/api/subscriber/all')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

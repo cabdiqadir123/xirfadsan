@@ -33,7 +33,7 @@ function TermsAndCondition() {
 
 
     const fetchdata = async () => {
-        fetch('/api/terms/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/terms/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -72,7 +72,7 @@ function TermsAndCondition() {
         setisloadingBTN(true);
 
         try {
-            await axios.post("/api/terms/add", {
+            await axios.post("https://back-end-for-xirfadsan.onrender.com/api/terms/add", {
                 term,
             });
 
@@ -104,7 +104,7 @@ function TermsAndCondition() {
         );
         setisloadingUpdateBTN(true);
         try {
-            const response = await axios.put(`/api/terms/update/${selectedrowid}`, {
+            const response = await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/terms/update/${selectedrowid}`, {
                 term: term,
             }, {
                 headers: {

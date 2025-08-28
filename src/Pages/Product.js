@@ -37,27 +37,27 @@ function Product() {
 
     const [servicedata, setservicedata] = useState([]);
     const fetch_service_data = async () => {
-        const rptdata = await axios.get("/api/services/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/services/all");
         const resltdata = rptdata.data;
         setservicedata(resltdata);
     };
 
     const [sub_servicedata, setsub_servicedata] = useState([]);
     const fetch_subservice_data = async (id) => {
-        const rptdata = await axios.get("/api/subservices/service/all/"+id);
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/subservices/service/all/"+id);
         const resltdata = rptdata.data;
         setsub_servicedata(resltdata);
     };
 
     const [unitdata, setunitdata] = useState([]);
     const fetch_unit_data = async () => {
-        const rptdata = await axios.get("/api/units/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/units/all");
         const resltdata = rptdata.data;
         setunitdata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/product/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/product/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -96,7 +96,7 @@ function Product() {
         formData.append('descibtion', descibtion);
         formData.append('image', image);
         try {
-            const response = await axios.post('/api/product/add', formData, {
+            const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/product/add', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -233,7 +233,7 @@ function Product() {
                                     <td>{item.unit_id}</td>
                                     <td>
                                         <img
-                                            src={`/api/product/image/${item.product_id}`}
+                                            src={`https://back-end-for-xirfadsan.onrender.com/api/product/image/${item.product_id}`}
                                             width={70} alt=''
                                         />
                                     </td>
@@ -242,7 +242,7 @@ function Product() {
                                             <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                             <button onClick={async (e) => {
                                                 const product_id = item.product_id;
-                                                await axios.post("/api/product/delete", {
+                                                await axios.post("https://back-end-for-xirfadsan.onrender.com/api/product/delete", {
                                                     product_id
                                                 });
                                                 fetchdata();

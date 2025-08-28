@@ -35,13 +35,13 @@ function ManageAvaibility() {
 
     const [cusomerdata, setcusomerdata] = useState([]);
     const fetch_customer_data = async () => {
-        const rptdata = await axios.get("/api/user/customer/all");
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/user/customer/all");
         const resltdata = rptdata.data;
         setcusomerdata(resltdata);
     };
 
     const fetchdata = async () => {
-        fetch('/api/testimonial/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/testimonial/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -68,7 +68,7 @@ function ManageAvaibility() {
         formData.append('name', name);
         formData.append('description', description);
         try {
-            const response = await axios.post('/api/testimonial/add', formData, {
+            const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/testimonial/add', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -174,7 +174,7 @@ function ManageAvaibility() {
                                             <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                             <button onClick={async (e) => {
                                                 const testimonial_id = item.testimonial_id;
-                                                await axios.post("/api/testimonial/delete", {
+                                                await axios.post("https://back-end-for-xirfadsan.onrender.com/api/testimonial/delete", {
                                                     testimonial_id
                                                 });
                                                 fetchdata();

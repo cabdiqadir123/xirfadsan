@@ -48,7 +48,7 @@ function Customer() {
     }
 
     const fetchdata = async () => {
-        fetch('/api/user/customer/all')
+        fetch('https://back-end-for-xirfadsan.onrender.com/api/user/customer/all')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -99,7 +99,7 @@ function Customer() {
             if (!num.test(phone)) {
                 alert("Tell text-flied only allawed for number ")
             } else {
-                const response = await axios.post('/api/user/add', formData, {
+                const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/user/add', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -132,7 +132,7 @@ function Customer() {
         }
 
         try {
-            const response = await axios.put(`/api/user/update/${selectedrowid}`, formData, {
+            const response = await axios.put(`https://back-end-for-xirfadsan.onrender.com/api/user/update/${selectedrowid}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -260,7 +260,7 @@ function Customer() {
                                         <td>{item.id}</td>
                                         <td>
                                             <img
-                                                src={`api/user/customer/image/${item.id}`}
+                                                src={`https://back-end-for-xirfadsan.onrender.com/api/user/customer/image/${item.id}`}
                                                 width={70} alt=''
                                             />
                                         </td>
