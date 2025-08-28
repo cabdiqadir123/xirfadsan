@@ -4,8 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "20.x",
-    "npm": "9.x"
+    "node": "20.x"
   },
   "options": {
     "allowedHosts": [
@@ -36,6 +35,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.10.1",
     "recharts": "^3.1.0",
+    "serve": "^14.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
