@@ -1,0 +1,60 @@
+.form{
+    background-color: white;
+    padding: 10px 10px 5px 10px;
+    margin-bottom: 20px;
+}
+
+.form input{
+    width: 100%;
+    border: 1px solid grey;
+    height: 30px;
+    padding: 7px 10px;
+}
+
+.form select{
+    width: 100%;
+    border: 1px solid grey;
+    height: 30px;
+}
+
+.form select .form-select-placeholder{
+    color: green;
+}
+
+.form textarea{
+    width: 100%;
+    border: 1px solid grey;
+    height: 70px;
+    resize: none;
+    padding: 7px 10px;
+}
+
+
+.form .checkbox{
+    width: 30px;
+}
+
+.filepicker{
+    display: flex;
+}
+
+.filepicker .input-file-picker{
+    width: 95px;
+    border: none;
+    padding: 0;
+}
+
+#form-rows{
+    margin-bottom: 10px;
+}
+
+.form-btns{
+    display: flex;
+    gap: 20px;
+    width: 200px;
+}
+
+.form-btns button{
+    width: 100px;
+    padding: 5px;
+}

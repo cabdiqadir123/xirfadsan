@@ -1,0 +1,95 @@
+.home{
+    width: 100%;
+    font-family: 'times new roman';
+}
+
+.top-header{
+    background-color: darkblue;
+    color: white;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.h-count-box{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.count-box-icon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    font-size: 50px;
+}
+
+.count-box{
+    flex-grow: 1;
+    min-width: 250px;
+    margin: 0px 20px;
+    height: 170px;
+    max-width: 900px;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+}
+
+#count-box-1{
+    background-color: rgb(9, 120, 68);
+}
+#count-box-2{
+    background-color: rgb(103, 8, 8);
+}
+#count-box-3{
+    background-color: rgb(118, 120, 9);
+}
+
+#count-box-4{
+    background-color: rgb(8, 37, 103);
+}
+#count-box-5{
+    background-color: rgb(9, 120, 107);
+}
+
+#count-box-6{
+    background-color: rgb(150, 7, 98);
+}
+
+.count-box:hover{
+    transform: skew(170deg);
+}
+
+.count-box h2{
+    font-size: 20px;
+}
+
+.count-box p{
+    font-size: 50px;
+}
+
+.count-box button{
+    background-color: white;
+    padding: 5px 20px;
+    border-radius: 20px;
+    color: darkblue;
+    font-weight: bolder;
+}
+
+.count-box button:hover{
+    background-color: darkblue;
+    color: white;
+    border-top: 5px solid rgb(163, 163, 174);
+    border-bottom: 5px solid rgb(163, 163, 174);
+    border-right: 10px solid rgb(163, 163, 174);
+    border-left: 10px solid rgb(163, 163, 174);
+}
