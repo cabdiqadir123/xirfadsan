@@ -289,7 +289,7 @@ function SendNotificaion() {
                                     <th>Name</th>
                                     <th>Title</th>
                                     <th>Massage</th>
-                                    <th>Actions</th>
+                                    {/* <th>Actions</th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -299,7 +299,7 @@ function SendNotificaion() {
                                         <td>{item.recipient_role}</td>
                                         <td>{item.title}</td>
                                         <td>{item.message}</td>
-                                        <td>
+                                        {/* <td>
                                             <div className='table-action-btns'>
                                                 <button id='btn-table-edit' className='btn text-success'><BiEdit /></button>
                                                 <button onClick={async (e) => {
@@ -310,7 +310,7 @@ function SendNotificaion() {
                                                     fetchdata();
                                                 }} id='btn-table-delete' className='btn text-danger'><BiTrash /></button>
                                             </div>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>

@@ -214,7 +214,7 @@ function Services() {
                             <div className='col-6'>
                                 <label>Second Image*</label>
                                 <div className='filepicker'>
-                                    <input type='text' placeholder='Enter image 2'/>
+                                    <input type='text' placeholder='Enter image 2' />
                                     <input type='file' className='input-file-picker' onChange={handleFileChange2} />
                                 </div>
                             </div>
@@ -283,7 +283,11 @@ function Services() {
                                         <tr key={item.service_id}>
                                             <td>{item.service_id}</td>
                                             <td>{item.name}</td>
-                                            <td><img src={item.imageUrl || `https://back-end-for-xirfadsan.onrender.com/api/services/image/${item.service_id}`} width={70} alt="" /></td>
+                                            <td>
+                                                <div
+                                                    dangerouslySetInnerHTML={{ __html: item.image }}
+                                                />
+                                            </td>
                                             <td><img src={item.secondryImageUrl || `https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${item.service_id}`} width={70} alt="" /></td>
                                             <td>{item.created_at}</td>
                                             <td>

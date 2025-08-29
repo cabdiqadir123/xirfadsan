@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import Header from '../Components/Header';
+import axios from 'axios';
+import { BiEdit } from 'react-icons/bi';
 
 function Complaint() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
+
+  const [isloadingUpdateBTN, setisloadingUpdateBTN] = useState(false);
+  const [selectedrowid, setselectedrowid] = useState("");
+
   const [data, setdata] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setitemsPerPage] = useState(5);
+
+  const [name, setname] = useState("");
+  const [complaint, setcomplaint] = useState("");
+  const [issue, setissue] = useState("");
+  const [comment, setcomment] = useState("");
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -47,8 +58,8 @@ function Complaint() {
 
   const filteredData = data.filter(item => {
     const matchesSearch =
-      item.name.toLowerCase().includes(searchItem.toLowerCase()) ||
-      item.complaint_id.toString().includes(searchItem);
+      item.name?.toLowerCase().includes(searchItem.toLowerCase()) ||
+      item.complaint_id?.toString().includes(searchItem);
 
     const itemDate = new Date(item.created_at);
     const isWithinDateRange =
@@ -59,6 +70,46 @@ function Complaint() {
 
   });
   const currentData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handelupdate = async (e) => {
+    e.preventDefault();
+
+    // Save old data for rollback
+    const prevData = [...data];
+
+    // Optimistic UI update
+    setdata(prev =>
+      prev.map(f =>
+        f.id === selectedrowid
+          ? {
+            ...f,
+            name,
+            complaint,
+            created_at: "Updating..."
+          }
+          : f
+      )
+    );
+    setisloadingUpdateBTN(true);
+    try {
+      const response = await axios.put(
+        `https://back-end-for-xirfadsan.onrender.com/api/complaint/update/${selectedrowid}`,
+        { issue, comment },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      fetchdata();
+      setisloadingUpdateBTN(false);
+
+    } catch (error) {
+      alert("Failed to update FAQ");
+      console.error(error);
+      setisloadingUpdateBTN(false);
+      setdata(prevData);
+    } finally {
+      setisloadingUpdateBTN(false);
+    }
+  };
 
   const headers = ['Full Name', 'email', 'Mobile No'];
 
@@ -111,6 +162,7 @@ function Complaint() {
                   <th>Complaint</th>
                   <th>Issue</th>
                   <th>Created At</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,6 +173,19 @@ function Complaint() {
                     <td>{item.complaint}</td>
                     <td>{item.issue}</td>
                     <td>{item.created_at}</td>
+                    <td>
+                      <div className='table-action-btns'>
+                        <button onClick={async (e) => {
+                          const id = item.complaint_id;
+                          setselectedrowid(id);
+                          setname(item.name);
+                          setcomplaint(item.complaint);
+                          setissue(item.issue);
+                          setcomment(item.comment);
+                          setShowPopup(true);
+                        }} id='btn-table-edit' className='btn text-success'><BiEdit /></button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -196,6 +261,62 @@ function Complaint() {
                           setStartDate('');
                           setEndDate('');
                         }} className='btn bg-danger text-light'>Reset</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        {showPopup && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0,0,0,0.5)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                background: "#fff",
+                padding: "20px",
+                borderRadius: "8px",
+                maxWidth: "700px",
+                width: "90%",
+              }}
+            >
+              <form className='form'>
+                <div className='container'>
+                  <div id='form-rows' className='row'>
+                    <div className='col-4'>
+                      <label>Issue*{issue}</label>
+                      <select value={issue} onChange={(e) => setissue(e.target.value)}>
+                        <option>Select Issue Type </option>
+                        <option value={"Pending"} >Pending</option>
+                        <option value={"Review"} >Review</option>
+                        <option value={"Resolved"}>Resolved</option>
+                      </select>
+                    </div>
+                    <div className='col-8'>
+                      <label>Comment*</label>
+                      <textarea type='text' placeholder='Enter Name' value={comment} onChange={(e) => setcomment(e.target.value)} > </textarea>
+                    </div>
+                  </div>
+                  <div id="form-rows" className="row">
+                    <div className="col-4">
+                      <div className="form-btns">
+                        <button onClick={handelupdate} type="submit" className='btn bg-primary text-light'>{isloadingUpdateBTN ? 'Updating...' : 'Update'}</button>
+                        <button onClick={() => setShowPopup(false)} className="btn bg-danger text-light">
+                          Cancel
+                        </button>
                       </div>
                     </div>
                   </div>
