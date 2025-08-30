@@ -8,7 +8,7 @@ function Bookings() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hideform, sethideform] = useState(true);
-
+    const [openModal, setOpenModal] = useState(false);
     const [bookingStatus, setBookingStatus] = useState('');
 
     const [data, setdata] = useState([]);
@@ -30,6 +30,13 @@ function Bookings() {
             sethideform(true)
         }
     }
+
+    const [booking_sub_services, setbooking_sub_services] = useState([]);
+    const fetch_booking_sub_services = async (id) => {
+        const rptdata = await axios.get("https://back-end-for-xirfadsan.onrender.com/api/booking/all_booking_sub_services/" + id);
+        const resltdata = rptdata.data;
+        setbooking_sub_services(resltdata);
+    };
 
     const [cusomerdata, setcusomerdata] = useState([]);
     const fetch_customer_data = async () => {
@@ -120,6 +127,12 @@ function Bookings() {
     const currentData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
 
+    const handleViewClick = (id) => {
+        fetch_booking_sub_services(id);
+        setOpenModal(true);
+    };
+
+
     const headers = ['Full Name', 'email', 'Mobile No'];
 
     const downloadCSV = () => {
@@ -140,7 +153,7 @@ function Bookings() {
 
     return (
         <div className='page'>
-            <Header/>
+            <Header />
             <div className='body'>
                 <div className='add-btn'>
                     <h1>Bookings</h1>
@@ -231,12 +244,13 @@ function Bookings() {
                                     <th>Date</th>
                                     <th>service_id</th>
                                     <th>Customer</th>
-                                    <th>Email</th>
+                                    <th>Bookid</th>
                                     <th>Phone</th>
                                     <th>Status</th>
                                     <th>Amount</th>
                                     <th>Staff</th>
                                     <th>EndTime</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -246,12 +260,18 @@ function Bookings() {
                                         <td>{item.created_at}</td>
                                         <td>{item.service_id}</td>
                                         <td>{item.customer_name}</td>
-                                        <td>{item.email}</td>
+                                        <td>{item.book_id}</td>
                                         <td>{item.phone}</td>
                                         <td>{item.booking_status}</td>
                                         <td>{item.amount}</td>
                                         <td>{item.staff_name}</td>
                                         <td>{item.created_at}</td>
+                                        <td><button
+                                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                                            onClick={() => handleViewClick(item.book_id)}
+                                        >
+                                            View
+                                        </button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -283,6 +303,37 @@ function Bookings() {
                         </div>
                     </div>
                 }
+                {openModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <div className="bg-white rounded-2xl shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                            <h2 className="text-xl font-semibold mb-4">Booking items</h2>
+
+                            {booking_sub_services.length > 0 ? (
+                                <ul className="space-y-2">
+                                    {booking_sub_services.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className="p-2 border rounded-lg flex justify-between"
+                                        >
+                                            <span>{item.sub_service}</span>
+                                            <span className="text-sm text-gray-500">{item.price}$</span>
+                                            <span>{item.item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-gray-500">No sub-services found</p>
+                            )}
+
+                            <button
+                                className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+                                onClick={() => setOpenModal(false)}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     )
