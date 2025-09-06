@@ -22,14 +22,13 @@ function Staff() {
     const [password, setpassword] = useState('123');
     const [phone, setphone] = useState("");
     const [address, setaddress] = useState();
-    const [dof, setdof] = useState();
     const [role] = useState("Staff");
     const [sex, setsex] = useState("");
     const [image, setimage] = useState("");
     const [status, setstatus] = useState("Active");
     const [service_id, setservice_id] = useState("");
     const [user_id, setuser_id] = useState("");
-    const [available,setavailable] = useState("true");
+    const [available, setavailable] = useState("true");
     const [token] = useState("no token");
 
     const [selectedrowid, setselectedrowid] = useState("");
@@ -112,7 +111,6 @@ function Staff() {
         formData.append("password", password);
         formData.append("phone", phone);
         formData.append("address", address);
-        formData.append("dof", dof);
         formData.append("sex", sex);
         formData.append("role", role);
         formData.append("status", status);
@@ -183,7 +181,6 @@ function Staff() {
         formData.append("password", password);
         formData.append("phone", phone);
         formData.append("address", address);
-        formData.append("dof", dof);
         formData.append("sex", sex);
         formData.append("role", role);
         formData.append("status", status);
@@ -333,21 +330,17 @@ function Staff() {
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
-                            <div className='col-3'>
+                            <div className='col-6'>
                                 <label>password*</label>
                                 <input type='text' placeholder='Enter Name' onChange={(e) => setphone(e.target.value)} />
                             </div>
-                            <div className='col-3'>
+                            <div className='col-6'>
                                 <label>Status*</label>
                                 <select onChange={(e) => setstatus(e.target.value)}>
                                     <option>Select Status</option>
                                     <option value={"Active"}>Active</option>
                                     <option value={"Inactive"}>Inactive</option>
                                 </select>
-                            </div>
-                            <div className='col-6'>
-                                <label> DOF*</label>
-                                <input type='date' placeholder='Enter Name' onChange={(e) => setdof(e.target.value)} />
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
@@ -395,6 +388,8 @@ function Staff() {
                                     <th>Staff Name</th>
                                     <th>Email</th>
                                     <th>Mobile No</th>
+                                    <th>Password</th>
+                                    <th>Service</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -406,12 +401,14 @@ function Staff() {
                                         <td>
                                             <img
                                                 src={item.imageUrl || `https://back-end-for-xirfadsan.onrender.com/api/user/image/${item.staff_user_id}?`}
-                                                width={70} alt=''
+                                                style={{ height: "50px", width: "50px" }} alt=''
                                             />
                                         </td>
                                         <td>{item.staff_name}</td>
                                         <td>{item.staff_email}</td>
                                         <td>{item.staff_phone}</td>
+                                        <td>{item.password}</td>
+                                        <td>{item.servicename}</td>
                                         <td>
                                             <div className={item.status === "Active" ? 'status-table-act' : 'status-table-inact'}>
                                                 <button
@@ -433,9 +430,6 @@ function Staff() {
                                                     setpassword(item.password);
                                                     setphone(item.staff_phone);
                                                     setaddress(item.staff_address);
-                                                    const isoDate = item.dof;
-                                                    const formattedDate = isoDate.split("T")[0];
-                                                    setdof(formattedDate);
                                                     setstatus(item.status);
                                                     setservice_id(item.servicename);
                                                     setsex(item.sex);
@@ -576,21 +570,17 @@ function Staff() {
                                         </div>
                                     </div>
                                     <div id='form-rows' className='row'>
-                                        <div className='col-3'>
+                                        <div className='col-6'>
                                             <label>password*</label>
                                             <input type='text' placeholder='Enter Name' value={password} onChange={(e) => setphone(e.target.value)} />
                                         </div>
-                                        <div className='col-3'>
+                                        <div className='col-6'>
                                             <label>Status*</label>
                                             <select value={status} onChange={(e) => setstatus(e.target.value)}>
                                                 <option>Select Status</option>
                                                 <option value={"Active"}>Active</option>
                                                 <option value={"Inactive"}>Inactive</option>
                                             </select>
-                                        </div>
-                                        <div className='col-6'>
-                                            <label> DOF*</label>
-                                            <input type='date' placeholder='Enter Name' value={dof} onChange={(e) => setdof(e.target.value)} />
                                         </div>
                                     </div>
                                     <div id='form-rows' className='row'>

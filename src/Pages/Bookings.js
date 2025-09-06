@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import Select from 'react-select';
 import Header from '../Components/Header';
+import { BiEdit } from 'react-icons/bi';
 
 function Bookings() {
     const [loading, setLoading] = useState(true);
@@ -10,6 +11,13 @@ function Bookings() {
     const [hideform, sethideform] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [bookingStatus, setBookingStatus] = useState('');
+    const [selectedrowid, setselectedrowid] = useState("");
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    const [amount, setamount] = useState();
+
+    const [isloadingUpdateBTN, setisloadingUpdateBTN] = useState(false);
 
     const [data, setdata] = useState([]);
 
@@ -132,6 +140,46 @@ function Bookings() {
         setOpenModal(true);
     };
 
+    const handelupdate = async (e) => {
+        e.preventDefault();
+
+        // Save old data for rollback
+        const prevData = [...data];
+
+        // Optimistic UI update
+        setdata(prev =>
+            prev.map(f =>
+                f.id === selectedrowid
+                    ? {
+                        ...f,
+                        amount,
+                        updated_at: "Updating..."
+                    }
+                    : f
+            )
+        );
+        setisloadingUpdateBTN(true);
+        try {
+            const response = await axios.put(
+                `https://back-end-for-xirfadsan.onrender.com/api/booking/updateamount/${selectedrowid}`,
+                { amount },
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            fetchdata();
+            setisloadingUpdateBTN(false);
+
+        } catch (error) {
+            alert("Failed to update FAQ");
+            console.error(error);
+            setisloadingUpdateBTN(false);
+            setdata(prevData);
+        } finally {
+            setisloadingUpdateBTN(false);
+            sethideform(false);
+        }
+    };
+
 
     const headers = ['Full Name', 'email', 'Mobile No'];
 
@@ -251,6 +299,7 @@ function Bookings() {
                                     <th>Staff</th>
                                     <th>EndTime</th>
                                     <th>View</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -272,6 +321,16 @@ function Bookings() {
                                         >
                                             View
                                         </button></td>
+                                        <td>
+                                            <div className='table-action-btns'>
+                                                <button onClick={async (e) => {
+                                                    const id = item.id;
+                                                    setselectedrowid(id);
+                                                    setamount(item.amount);
+                                                    setShowPopup(true);
+                                                }} id='btn-table-edit' className='btn text-success'><BiEdit /></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -331,6 +390,53 @@ function Bookings() {
                             >
                                 Close
                             </button>
+                        </div>
+                    </div>
+                )}
+                {showPopup && (
+                    <div
+                        style={{
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            width: "100vw",
+                            height: "100vh",
+                            background: "rgba(0,0,0,0.5)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 1000,
+                        }}
+                    >
+                        <div
+                            style={{
+                                background: "#fff",
+                                padding: "10px",
+                                borderRadius: "8px",
+                                maxWidth: "300px",
+                                width: "90%",
+                            }}
+                        >
+                            <form className='form'>
+                                <div className='container'>
+                                    <div id='form-rows' className='row'>
+                                        <div className='col-12'>
+                                            <label>Amount*</label>
+                                            <input placeholder='Enter The answer' value={amount} onChange={(e) => setamount(e.target.value)} />
+                                        </div>
+                                    </div>
+                                    <div id='form-rows' className='row'>
+                                        <div className='col-4'>
+                                            <div className='form-btns'>
+                                                <button onClick={handelupdate} type="submit" className='btn bg-primary text-light'>{isloadingUpdateBTN ? 'Updating...' : 'Update'}</button>
+                                                <button onClick={() => setShowPopup(false)} className="btn bg-danger text-light">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 )}

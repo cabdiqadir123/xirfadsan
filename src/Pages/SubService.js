@@ -10,7 +10,7 @@ function SubService() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [expandedRow, setExpandedRow] = useState(null);
-    const maxLength = 60;
+    const maxLength = 10;
     const [isloadingBTN, setisloadingBTN] = useState(false);
     const [isloadingUpdateBTN, setisloadingUpdateBTN] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
@@ -25,13 +25,6 @@ function SubService() {
     const [image, setimage] = useState("");
     const [price, setprice] = useState("");
     const [data, setdata] = useState([]);
-
-    const [gl1, setgl1] = useState("");
-    const [gl2, setgl2] = useState("");
-    const [gl3, setgl3] = useState("");
-    const [gl4, setgl4] = useState("");
-    const [gl5, setgl5] = useState("");
-    const [gl6, setgl6] = useState("");
 
     const [hideform, sethideform] = useState(false);
 
@@ -104,24 +97,6 @@ function SubService() {
     const handleFileChange = (e) => {
         setimage(e.target.files[0]);
     };
-    const handleFileChange1 = (e) => {
-        setgl1(e.target.files[0]);
-    };
-    const handleFileChange2 = (e) => {
-        setgl2(e.target.files[0]);
-    };
-    const handleFileChange3 = (e) => {
-        setgl3(e.target.files[0]);
-    };
-    const handleFileChange4 = (e) => {
-        setgl4(e.target.files[0]);
-    };
-    const handleFileChange5 = (e) => {
-        setgl5(e.target.files[0]);
-    };
-    const handleFileChange6 = (e) => {
-        setgl6(e.target.files[0]);
-    };
 
     const handler = async (event) => {
         event.preventDefault();
@@ -132,12 +107,6 @@ function SubService() {
         formData.append('service_id', service_id);
         formData.append('price', price);
         formData.append('image', image);
-        formData.append('gl1', gl1);
-        formData.append('gl2', gl2);
-        formData.append('gl3', gl3);
-        formData.append('gl4', gl4);
-        formData.append('gl5', gl5);
-        formData.append('gl6', gl6);
 
         // Create optimistic temp sub_service
         const maxId = data.length > 0 ? Math.max(...data.map(s => s.sub_service_id)) : 0;
@@ -149,12 +118,6 @@ function SubService() {
             service_id,
             price,
             imageUrl: image ? URL.createObjectURL(image) : '',
-            gl1,
-            gl2,
-            gl3,
-            gl4,
-            gl5,
-            gl6,
             created_at: "Uploading..."
         };
 
@@ -193,12 +156,6 @@ function SubService() {
 
         // Conditionally append new files only if selected
         if (image instanceof File) formData.append("image", image);
-        if (gl1 instanceof File) formData.append("gl1", gl1);
-        if (gl2 instanceof File) formData.append("gl2", gl2);
-        if (gl3 instanceof File) formData.append("gl3", gl3);
-        if (gl4 instanceof File) formData.append("gl4", gl4);
-        if (gl5 instanceof File) formData.append("gl5", gl5);
-        if (gl6 instanceof File) formData.append("gl6", gl6);
 
         // Save previous state for rollback
         const prevData = [...data];
@@ -212,12 +169,6 @@ function SubService() {
                         sub_service,
                         description,
                         imageUrl: image instanceof File ? URL.createObjectURL(image) : item.imageUrl,
-                        gl1: gl1 instanceof File ? URL.createObjectURL(gl1) : item.gl1,
-                        gl2: gl2 instanceof File ? URL.createObjectURL(gl2) : item.gl2,
-                        gl3: gl3 instanceof File ? URL.createObjectURL(gl3) : item.gl3,
-                        gl4: gl4 instanceof File ? URL.createObjectURL(gl4) : item.gl4,
-                        gl5: gl5 instanceof File ? URL.createObjectURL(gl5) : item.gl5,
-                        gl6: gl6 instanceof File ? URL.createObjectURL(gl6) : item.gl6,
                         updated_at: "Updating..."
                     }
                     : item
@@ -310,59 +261,6 @@ function SubService() {
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
-                            <div className='col-6'>
-                                <label>Gallery*</label>
-                            </div>
-                        </div>
-                        <div id='form-rows' className='row'>
-                            <div className='col-6'>
-                                <label>Image1*</label>
-                                <div className='filepicker'>
-                                    <input type='text' placeholder='Enter Name' />
-                                    <input type='file' className='input-file-picker' onChange={handleFileChange1} />
-                                </div>
-                            </div>
-                            <div className='col-6'>
-                                <label>Imag2*</label>
-                                <div className='filepicker'>
-                                    <input type='text' placeholder='Enter Name' />
-                                    <input type='file' className='input-file-picker' onChange={handleFileChange2} />
-                                </div>
-                            </div>
-                        </div>
-                        <div id='form-rows' className='row'>
-                            <div className='col-6'>
-                                <label>Image3*</label>
-                                <div className='filepicker'>
-                                    <input type='text' placeholder='Enter Name' />
-                                    <input type='file' className='input-file-picker' onChange={handleFileChange3} />
-                                </div>
-                            </div>
-                            <div className='col-6'>
-                                <label>Image4*</label>
-                                <div className='filepicker'>
-                                    <input type='text' placeholder='Enter Name' />
-                                    <input type='file' className='input-file-picker' onChange={handleFileChange4} />
-                                </div>
-                            </div>
-                        </div>
-                        <div id='form-rows' className='row'>
-                            <div className='col-6'>
-                                <label>Image5*</label>
-                                <div className='filepicker'>
-                                    <input type='text' placeholder='Enter Name' />
-                                    <input type='file' className='input-file-picker' onChange={handleFileChange5} />
-                                </div>
-                            </div>
-                            <div className='col-6'>
-                                <label>Image6*</label>
-                                <div className='filepicker'>
-                                    <input type='text' placeholder='Enter Name' />
-                                    <input type='file' className='input-file-picker' onChange={handleFileChange6} />
-                                </div>
-                            </div>
-                        </div>
-                        <div id='form-rows' className='row'>
                             <div className='col-4'>
                                 <div className='form-btns'>
                                     <button onClick={handler} type="submit" className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>
@@ -396,7 +294,7 @@ function SubService() {
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th style={{ width: '100px' }}>Description</th>
+                                        <th>Description</th>
                                         <th>Service ID</th>
                                         <th>Secondry Image</th>
                                         <th>Action</th>
@@ -411,7 +309,7 @@ function SubService() {
                                             <tr key={item.sub_service_id}>
                                                 <td>{item.sub_service_id}</td>
                                                 <td>{item.sub_service}</td>
-                                                <td style={{ width: '100px' }}>
+                                                <td>
                                                     {isExpanded ? text : text.slice(0, maxLength) + "... "}
                                                     <span
                                                         onClick={() =>
@@ -439,12 +337,6 @@ function SubService() {
                                                             setprice(item.price);
                                                             setdescription(item.description);
                                                             setimage(item.image);
-                                                            setgl1(item.gl1);
-                                                            setgl2(item.gl2);
-                                                            setgl3(item.gl3);
-                                                            setgl4(item.gl4);
-                                                            setgl5(item.gl5);
-                                                            setgl6(item.gl6);
                                                             setShowPopup(true);
                                                         }}
                                                             id='btn-table-edit' className='btn text-success'><BiEdit />
@@ -565,59 +457,6 @@ function SubService() {
                                             <div className='col-6'>
                                                 <label>Description*</label>
                                                 <input type='text' placeholder='Enter Name' value={description} onChange={(e) => setdescription(e.target.value)} />
-                                            </div>
-                                        </div>
-                                        <div id='form-rows' className='row'>
-                                            <div className='col-6'>
-                                                <label>Gallery*</label>
-                                            </div>
-                                        </div>
-                                        <div id='form-rows' className='row'>
-                                            <div className='col-6'>
-                                                <label>Image1*</label>
-                                                <div className='filepicker'>
-                                                    <input type='text' placeholder='Enter Name' value={gl1} />
-                                                    <input type='file' className='input-file-picker' onChange={handleFileChange1} />
-                                                </div>
-                                            </div>
-                                            <div className='col-6'>
-                                                <label>Imag2*</label>
-                                                <div className='filepicker'>
-                                                    <input type='text' placeholder='Enter Name' value={gl2} />
-                                                    <input type='file' className='input-file-picker' onChange={handleFileChange2} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id='form-rows' className='row'>
-                                            <div className='col-6'>
-                                                <label>Image3*</label>
-                                                <div className='filepicker'>
-                                                    <input type='text' placeholder='Enter Name' value={gl3} />
-                                                    <input type='file' className='input-file-picker' onChange={handleFileChange3} />
-                                                </div>
-                                            </div>
-                                            <div className='col-6'>
-                                                <label>Image4*</label>
-                                                <div className='filepicker'>
-                                                    <input type='text' placeholder='Enter Name' value={gl4} />
-                                                    <input type='file' className='input-file-picker' onChange={handleFileChange4} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id='form-rows' className='row'>
-                                            <div className='col-6'>
-                                                <label>Image5*</label>
-                                                <div className='filepicker'>
-                                                    <input type='text' placeholder='Enter Name' value={gl5} />
-                                                    <input type='file' className='input-file-picker' onChange={handleFileChange5} />
-                                                </div>
-                                            </div>
-                                            <div className='col-6'>
-                                                <label>Image6*</label>
-                                                <div className='filepicker'>
-                                                    <input type='text' placeholder='Enter Name' value={gl6} />
-                                                    <input type='file' className='input-file-picker' onChange={handleFileChange6} />
-                                                </div>
                                             </div>
                                         </div>
                                         <div id='form-rows' className='row'>

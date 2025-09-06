@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
-import { BiEdit, BiTrash } from 'react-icons/bi';
+import { BiEdit } from 'react-icons/bi';
 import Header from '../Components/Header';
 
 function Customer() {
@@ -22,7 +22,6 @@ function Customer() {
     const [password, setpassword] = useState('123');
     const [phone, setphone] = useState("");
     const [address, setaddress] = useState();
-    const [dof, setdof] = useState();
     const [role] = useState("Customer");
     const [sex, setsex] = useState("");
     const [image, setimage] = useState("");
@@ -100,7 +99,6 @@ function Customer() {
         formData.append("password", password);
         formData.append("phone", phone);
         formData.append("address", address);
-        formData.append("dof", dof);
         formData.append("sex", sex);
         formData.append("role", role);
         formData.append("status", status);
@@ -164,7 +162,6 @@ function Customer() {
         formData.append("password", password);
         formData.append("phone", phone);
         formData.append("address", address);
-        formData.append("dof", dof);
         formData.append("sex", sex);
         formData.append("role", role);
         formData.append("status", status);
@@ -282,10 +279,6 @@ function Customer() {
                                     <input type='file' className='input-file-picker' onChange={handleFileChange} />
                                 </div>
                             </div>
-                            <div className='col-6'>
-                                <label> DOF*</label>
-                                <input type='date' onChange={(e) => setdof(e.target.value)} />
-                            </div>
                         </div>
                         <div id='form-rows' className='row'>
                             <div className='col-4'>
@@ -348,9 +341,6 @@ function Customer() {
                                                     setpassword(item.password);
                                                     setphone(item.phone);
                                                     setaddress(item.address);
-                                                    const isoDate = item.dof;
-                                                    const formattedDate = isoDate.split("T")[0];
-                                                    setdof(formattedDate);
                                                     setsex(item.sex);
                                                     setstatus(item.status);
                                                     setShowPopup(true);
@@ -450,11 +440,7 @@ function Customer() {
                                                 <input type='file' className='input-file-picker' onChange={handleFileChange} />
                                             </div>
                                         </div>
-                                        <div className='col-3'>
-                                            <label> DOF*</label>
-                                            <input type='date' value={dof} onChange={(e) => setdof(e.target.value)} />
-                                        </div>
-                                        <div className='col-3'>
+                                        <div className='col-6'>
                                             <label>Status*</label>
                                             <select value={status} onChange={(e) => setstatus(e.target.value)}>
                                                 <option>Select Status</option>
