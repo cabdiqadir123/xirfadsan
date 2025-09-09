@@ -118,37 +118,46 @@ function SendNotificaion() {
     const Send_notificaion_function = async (e) => {
         if (usertoken !== "") {
             try {
-                const response = await fetch('https://back-end-for-xirfadsan.onrender.com/api/send/send-data', { // change to your actual backend URL
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        title: title,
-                        body: message,
-                        token: usertoken,
-                    }),
-                });
+                const response = await fetch(
+                    'https://back-end-for-xirfadsan.onrender.com/api/send/send-data', // change to your actual backend URL
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            body: message,
+                            token: usertoken, // FCM token of the target user
+                            role: recipient_role     // <-- include the role of the target user, e.g., 'Customer' or 'Staff'
+                        }),
+                    }
+                );
                 const data = await response.json();
                 console.log('Notification Response:', data);
+                alert(response.status);
             } catch (error) {
                 console.error('Error sending notification:', error);
             }
         } else {
             try {
-                const response = await fetch('https://back-end-for-xirfadsan.onrender.com/api/send/send-data-to-all', { // change to your actual backend URL
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        title: title,
-                        body: message,
-                        role: recipient_role,
-                    }),
-                });
+                const response = await fetch(
+                    'https://back-end-for-xirfadsan.onrender.com/api/send/send-data-to-all', // your backend URL
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            title: title,           // notification title
+                            body: message,          // notification body
+                            role: recipient_role,   // 'Customer' or 'Staff'
+                        }),
+                    }
+                );
                 const data = await response.json();
                 console.log('Notification Response:', data);
+                alert(response.status);
             } catch (error) {
                 console.error('Error sending notification:', error);
             }
@@ -156,6 +165,7 @@ function SendNotificaion() {
     }
 
     const handler = async (e) => {
+        e.preventDefault();
         Send_notificaion_function();
         try {
             await axios.post("https://back-end-for-xirfadsan.onrender.com/api/notification/add", {
@@ -169,7 +179,9 @@ function SendNotificaion() {
                 hasBook_id,
                 hasBook_started
             });
+            fetchdata();
         } catch (errr) {
+            alert(errr);
             console.log("error jiro");
         }
     };
@@ -194,7 +206,7 @@ function SendNotificaion() {
 
     return (
         <div className='page'>
-            <Header/>
+            <Header />
             <div className='body'>
                 <div className='add-btn'>
                     <h1>Send Notificaion</h1>

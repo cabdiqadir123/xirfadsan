@@ -153,7 +153,8 @@ function SubService() {
         const formData = new FormData();
         formData.append("sub_service", sub_service);
         formData.append("description", description);
-
+        formData.append('service_id', service_id);
+        formData.append('price', price);
         // Conditionally append new files only if selected
         if (image instanceof File) formData.append("image", image);
 
@@ -315,7 +316,7 @@ function SubService() {
                                                         onClick={() =>
                                                             setExpandedRow(isExpanded ? null : item.sub_service_id)
                                                         }
-                                                        style={{ color: "blue", cursor: "pointer",width: '100px' }}
+                                                        style={{ color: "blue", cursor: "pointer", width: '100px' }}
                                                     >
                                                         {isExpanded ? "See less" : "See more"}
                                                     </span>
@@ -333,7 +334,7 @@ function SubService() {
                                                             const sub_service_id = item.sub_service_id;
                                                             setselectedrowid(sub_service_id);
                                                             setsub_service(item.sub_service);
-                                                            setservice_id(item.service_id);
+                                                            setservice_id(item.name);
                                                             setprice(item.price);
                                                             setdescription(item.description);
                                                             setimage(item.image);
@@ -432,7 +433,7 @@ function SubService() {
                                             </div>
                                             <div className='col-6'>
                                                 <label>Select Service*</label>
-                                                <select onChange={(e) => setservice_id(e.target.value)}>
+                                                <select value={service_id} onChange={(e) => setservice_id(e.target.value)}>
                                                     <option>Select</option>
                                                     {servicedata.map((item) => (
                                                         <option>{item.name}</option>
