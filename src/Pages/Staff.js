@@ -102,8 +102,33 @@ function Staff() {
         setimage(e.target.files[0]);
     };
 
+    function getSomaliaTime() {
+        const now = new Date();
+        // Somalia is always UTC+3 (no DST)
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const somalia = new Date(utc + 3 * 60 * 60 * 1000);
+
+        const pad = (n) => (n < 10 ? "0" + n : n);
+
+        return (
+            somalia.getFullYear() +
+            "-" +
+            pad(somalia.getMonth() + 1) +
+            "-" +
+            pad(somalia.getDate()) +
+            " " +
+            pad(somalia.getHours()) +
+            ":" +
+            pad(somalia.getMinutes()) +
+            ":" +
+            pad(somalia.getSeconds())
+        );
+    }
+
     const handler = async (e) => {
         e.preventDefault(); // prevent form refresh
+
+        const created_at = getSomaliaTime();
 
         const formData = new FormData();
         formData.append("name", name);
@@ -116,6 +141,7 @@ function Staff() {
         formData.append("status", status);
         formData.append("image", image);
         formData.append("token", token);
+        formData.append("created_at", created_at);
 
         const num = /^[0-9\b]+$/;
         if (!num.test(phone)) {
