@@ -28,7 +28,6 @@ function Login({ onLogin }) {
                 body: JSON.stringify({
                     phone: phone,
                     password: password,
-                    fcmtoken : fcmtoken
                 }),
             });
             if (response.status === 200) {
