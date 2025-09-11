@@ -16,6 +16,7 @@ function Login({ onLogin }) {
     const [isloading,setisloading]=useState(false);
 
     const handleLogin = async (e) => {
+        const fcmtoken="no token";
         e.preventDefault();
         try {
             setisloading(true);
@@ -27,6 +28,7 @@ function Login({ onLogin }) {
                 body: JSON.stringify({
                     phone: phone,
                     password: password,
+                    fcmtoken : fcmtoken
                 }),
             });
             if (response.status === 200) {

@@ -19,7 +19,7 @@ function SpecialOffers() {
     const [sub_service_id, setsub_service_id] = useState("");
     const [promocode, setpromocode] = useState("");
     const [description, setdescription] = useState("");
-    const [end_date, setend_date] = useState("")
+    const [end_date, setend_date] = useState("");
     const [image, setImage] = useState(null);
     const [per, setper] = useState("")
     const [color, setcolor] = useState("");
@@ -109,8 +109,33 @@ function SpecialOffers() {
         setImage(e.target.files[0]);
     };
 
+    function getSomaliaTime() {
+        const now = new Date();
+        // Somalia is always UTC+3 (no DST)
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const somalia = new Date(utc + 3 * 60 * 60 * 1000);
+
+        const pad = (n) => (n < 10 ? "0" + n : n);
+
+        return (
+            somalia.getFullYear() +
+            "-" +
+            pad(somalia.getMonth() + 1) +
+            "-" +
+            pad(somalia.getDate()) +
+            " " +
+            pad(somalia.getHours()) +
+            ":" +
+            pad(somalia.getMinutes()) +
+            ":" +
+            pad(somalia.getSeconds())
+        );
+    }
+
     const handler = async (e) => {
         e.preventDefault(); // prevent page reload
+
+        const created_at =getSomaliaTime();
 
         const formData = new FormData();
         formData.append("sub_service_id", sub_service_id);
@@ -120,6 +145,10 @@ function SpecialOffers() {
         formData.append("image", image); // must be File object
         formData.append("end_date", end_date);
         formData.append("color", color);
+        formData.append("created_at", created_at);
+
+        alert(created_at);
+
 
         // Save old data for rollback
         const prevData = [...data];

@@ -67,14 +67,37 @@ function Services() {
     const handleFileChange = (e) => setimage(e.target.files[0]);
     const handleFileChange2 = (e) => setsecondry_image(e.target.files[0]);
 
+    function getSomaliaTime() {
+        const now = new Date();
+        // Somalia is always UTC+3 (no DST)
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const somalia = new Date(utc + 3 * 60 * 60 * 1000);
+
+        const pad = (n) => (n < 10 ? "0" + n : n);
+
+        return (
+            somalia.getFullYear() +
+            "-" +
+            pad(somalia.getMonth() + 1) +
+            "-" +
+            pad(somalia.getDate()) +
+            " " +
+            pad(somalia.getHours()) +
+            ":" +
+            pad(somalia.getMinutes()) +
+            ":" +
+            pad(somalia.getSeconds())
+        );
+    }
+
     const handler = async (event) => {
         event.preventDefault();
-
+        const created_at = getSomaliaTime();
         const formData = new FormData();
         formData.append('name', name);
         formData.append('image', image);
         formData.append('secondry_image', secondry_image);
-        formData.append('color', color);
+        formData.append("created_at", created_at);
 
         // Optimistic UI: create a temporary service
         const maxId = services.length > 0 ? Math.max(...services.map(s => s.service_id)) : 0;

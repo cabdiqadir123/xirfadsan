@@ -16,6 +16,7 @@ function Bookings() {
     const [showPopup, setShowPopup] = useState(false);
 
     const [amount, setamount] = useState();
+    const [price_amount, setprice_amount]=useState();
 
     const [isloadingUpdateBTN, setisloadingUpdateBTN] = useState(false);
 
@@ -111,8 +112,8 @@ function Bookings() {
 
     const filteredData = data.filter(item => {
         const matchesSearch =
-            item.customer_name.toLowerCase().includes(searchItem.toLowerCase()) ||
-            item.id.toString().includes(searchItem);
+            item.customer_name?.toLowerCase().includes(searchItem.toLowerCase()) ||
+            item.book_id?.toString().includes(searchItem);
 
         const itemDate = new Date(item.created_at);
         const isWithinDateRange =
@@ -162,7 +163,7 @@ function Bookings() {
         try {
             const response = await axios.put(
                 `https://back-end-for-xirfadsan.onrender.com/api/booking/updateamount/${selectedrowid}`,
-                { amount },
+                {price_amount, amount },
                 { headers: { "Content-Type": "application/json" } }
             );
 
@@ -326,6 +327,7 @@ function Bookings() {
                                                 <button onClick={async (e) => {
                                                     const id = item.id;
                                                     setselectedrowid(id);
+                                                    setprice_amount(item.price_amount)
                                                     setamount(item.amount);
                                                     setShowPopup(true);
                                                 }} id='btn-table-edit' className='btn text-success'><BiEdit /></button>
@@ -421,7 +423,13 @@ function Bookings() {
                                 <div className='container'>
                                     <div id='form-rows' className='row'>
                                         <div className='col-12'>
-                                            <label>Amount*</label>
+                                            <label>Price amount*</label>
+                                            <input placeholder='Enter The answer' value={price_amount} onChange={(e) => setprice_amount(e.target.value)} />
+                                        </div>
+                                    </div>
+                                    <div id='form-rows' className='row'>
+                                        <div className='col-12'>
+                                            <label>Total*</label>
                                             <input placeholder='Enter The answer' value={amount} onChange={(e) => setamount(e.target.value)} />
                                         </div>
                                     </div>

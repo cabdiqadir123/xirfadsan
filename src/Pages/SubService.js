@@ -98,8 +98,33 @@ function SubService() {
         setimage(e.target.files[0]);
     };
 
+    function getSomaliaTime() {
+        const now = new Date();
+        // Somalia is always UTC+3 (no DST)
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const somalia = new Date(utc + 3 * 60 * 60 * 1000);
+
+        const pad = (n) => (n < 10 ? "0" + n : n);
+
+        return (
+            somalia.getFullYear() +
+            "-" +
+            pad(somalia.getMonth() + 1) +
+            "-" +
+            pad(somalia.getDate()) +
+            " " +
+            pad(somalia.getHours()) +
+            ":" +
+            pad(somalia.getMinutes()) +
+            ":" +
+            pad(somalia.getSeconds())
+        );
+    };
+
     const handler = async (event) => {
         event.preventDefault();
+
+        const created_at = getSomaliaTime();
 
         const formData = new FormData();
         formData.append('sub_service', sub_service);
@@ -107,6 +132,7 @@ function SubService() {
         formData.append('service_id', service_id);
         formData.append('price', price);
         formData.append('image', image);
+        formData.append("created_at", created_at);
 
         // Create optimistic temp sub_service
         const maxId = data.length > 0 ? Math.max(...data.map(s => s.sub_service_id)) : 0;

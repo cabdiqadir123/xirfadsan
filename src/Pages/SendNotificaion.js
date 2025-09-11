@@ -164,8 +164,33 @@ function SendNotificaion() {
         }
     }
 
+    function getSomaliaTime() {
+        const now = new Date();
+        // Somalia is always UTC+3 (no DST)
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const somalia = new Date(utc + 3 * 60 * 60 * 1000);
+
+        const pad = (n) => (n < 10 ? "0" + n : n);
+
+        return (
+            somalia.getFullYear() +
+            "-" +
+            pad(somalia.getMonth() + 1) +
+            "-" +
+            pad(somalia.getDate()) +
+            " " +
+            pad(somalia.getHours()) +
+            ":" +
+            pad(somalia.getMinutes()) +
+            ":" +
+            pad(somalia.getSeconds())
+        );
+    }
+
     const handler = async (e) => {
         e.preventDefault();
+
+        const created_at = getSomaliaTime();
         Send_notificaion_function();
         try {
             await axios.post("https://back-end-for-xirfadsan.onrender.com/api/notification/add", {
@@ -177,7 +202,8 @@ function SendNotificaion() {
                 message,
                 hasButton,
                 hasBook_id,
-                hasBook_started
+                hasBook_started,
+                created_at
             });
             fetchdata();
         } catch (errr) {
