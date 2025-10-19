@@ -8,7 +8,7 @@ function Customer() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hideform, sethideform] = useState(false);
-    const [hideformtitle, sethideformtitle] = useState("Open");
+    const [hideformtitle, sethideformtitle] = useState("New");
     const [showPopup, setShowPopup] = useState(false);
 
     const [isloadingBTN, setisloadingBTN] = useState(false);
@@ -43,7 +43,7 @@ function Customer() {
     function hideform_action() {
         if (hideform === true) {
             sethideform(false)
-            sethideformtitle("Open");
+            sethideformtitle("New");
         } else {
             sethideform(true)
             sethideformtitle("Close");
@@ -280,17 +280,21 @@ function Customer() {
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
-                            <div className='col-3'>
+                            <div className='col-2'>
                                 <label>Mobile No*</label>
                                 <input type='text' placeholder='Enter Name' onChange={(e) => setphone(e.target.value)} />
                             </div>
-                            <div className='col-3'>
+                            <div className='col-2'>
                                 <label>Sex*</label>
                                 <select onChange={(e) => setsex(e.target.value)}>
                                     <option>Select Sex</option>
                                     <option value={"Male"}>Male</option>
                                     <option value={"Female"}>Female</option>
                                 </select>
+                            </div>
+                            <div className='col-2'>
+                                <label>password*</label>
+                                <input type='text' placeholder='Enter Name' onChange={(e) => setpassword(e.target.value)} />
                             </div>
                             <div className='col-6'>
                                 <label> Address*</label>
@@ -305,11 +309,27 @@ function Customer() {
                                     <input type='file' className='input-file-picker' onChange={handleFileChange} />
                                 </div>
                             </div>
+                            <div className='col-6'>
+                                {image === "" ?
+                                    <h1></h1>
+                                    : <img
+                                        src={URL.createObjectURL(image)}
+                                        width={120}
+                                        height={120}
+                                        alt=''
+                                    />
+                                }
+                            </div>
                         </div>
                         <div id='form-rows' className='row'>
                             <div className='col-4'>
                                 <div className='form-btns'>
-                                    <button onClick={handler} type="submit" className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>                                    <button type='reset' className='btn bg-danger text-light'>Cancel</button>
+                                    <button onClick={handler} type="submit" className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>
+                                    <button onClick={() => {
+                                        sethideform(false)
+                                        setimage("")
+                                        sethideformtitle("New")
+                                    }} type='reset' className='btn bg-danger text-light'>Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -351,7 +371,7 @@ function Customer() {
                                         <td>
                                             <img
                                                 src={`https://back-end-for-xirfadsan.onrender.com/api/user/customer/image/${item.id}`}
-                                                width={0} alt=''
+                                                width={50} alt=''
                                             />
                                         </td>
                                         <td>{item.name}</td>
@@ -459,14 +479,14 @@ function Customer() {
                                         </div>
                                     </div>
                                     <div id='form-rows' className='row'>
-                                        <div className='col-6'>
+                                        <div className='col-4'>
                                             <label>Profile Image*</label>
                                             <div className='filepicker'>
-                                                <input type='text' placeholder='Enter Name' value={image} />
+                                                <input type='text' value={image} />
                                                 <input type='file' className='input-file-picker' onChange={handleFileChange} />
                                             </div>
                                         </div>
-                                        <div className='col-6'>
+                                        <div className='col-2'>
                                             <label>Status*</label>
                                             <select value={status} onChange={(e) => setstatus(e.target.value)}>
                                                 <option>Select Status</option>
@@ -474,12 +494,35 @@ function Customer() {
                                                 <option value={"Inactive"}>Inactive</option>
                                             </select>
                                         </div>
+                                        <div className='col-3'>
+                                            <label>password*</label>
+                                            <input type='text' value={password} placeholder='Enter Password' onChange={(e) => setphone(e.target.value)} />
+                                        </div>
+                                        <div className='col-3'>
+                                            {image === "" ?
+                                                <img
+                                                    src={`https://back-end-for-xirfadsan.onrender.com/api/user/customer/image/${selectedrowid}`}
+                                                    height={80}
+                                                    width={80} alt=''
+                                                />
+                                                : <img
+                                                    src={URL.createObjectURL(image)}
+                                                    width={80}
+                                                    height={80}
+                                                    alt=''
+                                                />
+                                            }
+                                        </div>
                                     </div>
                                     <div id="form-rows" className="row">
                                         <div className="col-4">
                                             <div className="form-btns">
                                                 <button onClick={handelupdate} type="submit" className='btn bg-primary text-light'>{isloadingUpdateBTN ? 'Updating...' : 'Update'}</button>
-                                                <button onClick={() => setShowPopup(false)} className="btn bg-danger text-light">
+                                                <button onClick={() => {
+                                                    setShowPopup(false)
+                                                    setselectedrowid("")
+                                                    setimage("")
+                                                }} type='reset' className="btn bg-danger text-light">
                                                     Cancel
                                                 </button>
                                             </div>

@@ -90,42 +90,9 @@ function Blog() {
         formData.append('blog', blog);
         formData.append('image', image);
 
-        // Create a temporary blog object for optimistic UI
-        const maxId = data.length > 0 ? Math.max(...data.map(item => item.id)) : 0;
-        const tempId = maxId + 1;
-
-        const tempBlog = {
-            id: tempId, // temporary ID
-            title,
-            blog,
-            imageUrl: URL.createObjectURL(image), // display image immediately
-        };
-
-        // Optimistic update: show temp blog immediately
-        setTempBlogs((prev) => [...prev, tempBlog]);
-        sethideform(false);
-        sethideformtitle("Open");
-        setisloadingBTN(true);
-
-        try {
             const response = await axios.post('https://back-end-for-xirfadsan.onrender.com/api/blog/add', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
-            });
-            console.log(response);
-
-            // Refresh data from server
-            fetchdata();
-            setTempBlogs([]); // clear temporary blogs
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            alert('Failed to upload image');
-
-            // Rollback optimistic update
-            setTempBlogs([]);
-            fetchdata();
-        } finally {
-            setisloadingBTN(false);
-        }
+            });setisloadingBTN(false);
     };
 
     const handelupdate = async (e) => {

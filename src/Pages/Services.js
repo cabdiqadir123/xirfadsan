@@ -24,6 +24,8 @@ function Services() {
     const [itemsPerPage, setitemsPerPage] = useState(5);
     const [searchItem, setSearchItem] = useState('');
 
+    const [svg, setsvg] = useState('');
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -97,6 +99,7 @@ function Services() {
         formData.append('name', name);
         formData.append('image', image);
         formData.append('secondry_image', secondry_image);
+        formData.append('color', color);
         formData.append("created_at", created_at);
 
         // Optimistic UI: create a temporary service
@@ -142,6 +145,7 @@ function Services() {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('color', color);
+        formData.append('status', "Active");
         if (image instanceof File) formData.append('image', image);
         if (secondry_image instanceof File) formData.append('secondry_image', secondry_image);
 
@@ -244,27 +248,43 @@ function Services() {
                         </div>
                         <div id='form-rows' className='row'>
                             <div className='col-6'>
-                                {selectedrowid === "" ? <img src={images} alt='' width={50} height={50} /> : <img
-                                    src={`https://back-end-for-xirfadsan.onrender.com/api/services/image/${selectedrowid}`}
-                                    width={120}
-                                    height={120}
-                                    alt=''
-                                />}
+                                <div className='col-6'>
+                                    {image === "" ?
+                                        <h1>Choose image</h1>
+                                        : <img
+                                            src={URL.createObjectURL(image)}
+                                            width={120}
+                                            height={120}
+                                            alt=''
+                                        />
+                                    }
+                                </div>
                             </div>
                             <div className='col-6'>
-                                {selectedrowid === "" ? <img src={image} alt='' width={50} height={50} /> : <img
-                                    src={`https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${selectedrowid}`}
-                                    width={120}
-                                    height={120}
-                                    alt=''
-                                />}
+                                <div className='col-6'>
+                                    {secondry_image === "" ?
+                                        <h1>Choose image</h1>
+                                        : <img
+                                            src={URL.createObjectURL(secondry_image)}
+                                            width={120}
+                                            height={120}
+                                            alt=''
+                                        />
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
                             <div className='col-4'>
                                 <div className='form-btns'>
-                                    <button onClick={handler} type="submit" className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>
-                                    <button className='btn bg-danger text-light'>Cancel</button>
+                                    <button onClick={handler} className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        sethideform(false);
+                                        setimage("")
+                                        setsecondry_image("")
+                                        sethideformtitle("New");
+                                    }} type='reset' className='btn bg-danger text-light'>Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -319,6 +339,7 @@ function Services() {
                                                     setname(item.name);
                                                     setcolor(item.color);
                                                     setShowPopup(true);
+                                                    setsvg(item.image)
                                                 }} className='btn text-success'><BiEdit /></button>
                                                 <button onClick={async () => {
                                                     const id = item.service_id;
@@ -418,27 +439,46 @@ function Services() {
                                     </div>
                                     <div id='form-rows' className='row'>
                                         <div className='col-6'>
-                                            {selectedrowid === "" ? <img src={images} alt='' width={50} height={50} /> : <img
-                                                src={`https://back-end-for-xirfadsan.onrender.com/api/services/image/${selectedrowid}`}
-                                                width={120}
-                                                height={120}
-                                                alt=''
-                                            />}
+
+                                            {image === "" ?
+                                                <div
+                                                    dangerouslySetInnerHTML={{ __html: svg }}
+                                                />
+                                                : <img
+                                                    src={URL.createObjectURL(image)}
+                                                    width={80}
+                                                    height={80}
+                                                    alt=''
+                                                />
+                                            }
                                         </div>
                                         <div className='col-6'>
-                                            {selectedrowid === "" ? <img src={image} alt='' width={50} height={50} /> : <img
-                                                src={`https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${selectedrowid}`}
-                                                width={120}
-                                                height={120}
-                                                alt=''
-                                            />}
+                                            {secondry_image === "" ?
+                                                <img
+                                                    src={`https://back-end-for-xirfadsan.onrender.com/api/services/secondry_image/${selectedrowid}`}
+                                                    width={120}
+                                                    height={120}
+                                                    alt=''
+                                                />
+                                                : <img
+                                                    src={URL.createObjectURL(secondry_image)}
+                                                    width={120}
+                                                    height={120}
+                                                    alt=''
+                                                />
+                                            }
                                         </div>
                                     </div>
                                     <div id='form-rows' className='row'>
                                         <div className='col-4'>
                                             <div className='form-btns'>
                                                 <button onClick={handelupdate} type="submit" className='btn bg-primary text-light'>{isloadingUpdateBTN ? 'Updating...' : 'Update'}</button>
-                                                <button onClick={() => setShowPopup(false)} className="btn bg-danger text-light">
+                                                <button onClick={() => {
+                                                    setShowPopup(false);
+                                                    setselectedrowid("")
+                                                    setimage("")
+                                                    setsecondry_image("")
+                                                }} type='reset' className="btn bg-danger text-light">
                                                     Cancel
                                                 </button>
                                             </div>

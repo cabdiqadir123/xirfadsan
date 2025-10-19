@@ -178,6 +178,7 @@ function Staff() {
                 name,
                 service_id,
                 available,
+                created_at
             });
 
             console.log("User created:", userResponse.data);
@@ -327,16 +328,24 @@ function Staff() {
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
-                            <div className='col-3'>
+                            <div className='col-2'>
                                 <label>Mobile No*</label>
                                 <input type='text' placeholder='Enter Name' onChange={(e) => setphone(e.target.value)} />
                             </div>
-                            <div className='col-3'>
+                            <div className='col-2'>
                                 <label>Sex*{sex}</label>
                                 <select onChange={(e) => setsex(e.target.value)}>
                                     <option >Select Sex</option>
                                     <option value={"Male"} >Male</option>
                                     <option value={"Female"}>Female</option>
+                                </select>
+                            </div>
+                            <div className='col-2'>
+                                <label>Status*</label>
+                                <select onChange={(e) => setstatus(e.target.value)}>
+                                    <option>Select Status</option>
+                                    <option value={"Active"}>Active</option>
+                                    <option value={"Inactive"}>Inactive</option>
                                 </select>
                             </div>
                             <div className='col-6'>
@@ -354,22 +363,6 @@ function Staff() {
                                     ))}
                                 </select>
                             </div>
-                        </div>
-                        <div id='form-rows' className='row'>
-                            <div className='col-6'>
-                                <label>password*</label>
-                                <input type='text' placeholder='Enter Name' onChange={(e) => setphone(e.target.value)} />
-                            </div>
-                            <div className='col-6'>
-                                <label>Status*</label>
-                                <select onChange={(e) => setstatus(e.target.value)}>
-                                    <option>Select Status</option>
-                                    <option value={"Active"}>Active</option>
-                                    <option value={"Inactive"}>Inactive</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id='form-rows' className='row'>
                             <div className='col-6'>
                                 <label>Profile Image*</label>
                                 <div className='filepicker'>
@@ -379,10 +372,31 @@ function Staff() {
                             </div>
                         </div>
                         <div id='form-rows' className='row'>
+                            <div className='col-6'>
+                                <label>password*</label>
+                                <input type='text' placeholder='Enter Name' onChange={(e) => setphone(e.target.value)} />
+                            </div>
+                            <div className='col-6'>
+                                {image === "" ?
+                                    <h1></h1>
+                                    : <img
+                                        src={URL.createObjectURL(image)}
+                                        width={120}
+                                        height={120}
+                                        alt=''
+                                    />
+                                }
+                            </div>
+                        </div>
+                        <div id='form-rows' className='row'>
                             <div className='col-4'>
                                 <div className='form-btns'>
                                     <button onClick={handler} type="submit" className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>
-                                    <button className='btn bg-danger text-light'>Cancel</button>
+                                    <button onClick={() => {
+                                        sethideform(false)
+                                        setimage("")
+                                        sethideformtitle("New")
+                                    }} type='reset' className='btn bg-danger text-light'>Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -594,13 +608,7 @@ function Staff() {
                                                 <option value={"false"}>false</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div id='form-rows' className='row'>
-                                        <div className='col-6'>
-                                            <label>password*</label>
-                                            <input type='text' placeholder='Enter Name' value={password} onChange={(e) => setphone(e.target.value)} />
-                                        </div>
-                                        <div className='col-6'>
+                                        <div className='col-3'>
                                             <label>Status*</label>
                                             <select value={status} onChange={(e) => setstatus(e.target.value)}>
                                                 <option>Select Status</option>
@@ -610,19 +618,43 @@ function Staff() {
                                         </div>
                                     </div>
                                     <div id='form-rows' className='row'>
-                                        <div className='col-6'>
+                                        <div className='col-3'>
+                                            <label>password*</label>
+                                            <input type='text' placeholder='Enter Name' value={password} onChange={(e) => setpassword(e.target.value)} />
+                                        </div>
+                                        <div className='col-5'>
                                             <label>Profile Image*</label>
                                             <div className='filepicker'>
                                                 <input type='text' placeholder='Enter Name' value={image} />
                                                 <input type='file' className='input-file-picker' onChange={handleFileChange} />
                                             </div>
                                         </div>
+                                        <div className='col-4'>
+                                            {image === "" ?
+                                                <img
+                                                    src={ `https://back-end-for-xirfadsan.onrender.com/api/user/image/${user_id}?`}
+                                                    width={70}
+                                                    height={70}
+                                                    alt=''
+                                                />
+                                                : <img
+                                                    src={URL.createObjectURL(image)}
+                                                    width={120}
+                                                    height={120}
+                                                    alt=''
+                                                />
+                                            }
+                                        </div>
                                     </div>
                                     <div id="form-rows" className="row">
                                         <div className="col-4">
                                             <div className="form-btns">
                                                 <button onClick={handelupdate} type="submit" className='btn bg-primary text-light'>{isloadingUpdateBTN ? 'Updating...' : 'Update'}</button>
-                                                <button onClick={() => setShowPopup(false)} className="btn bg-danger text-light">
+                                                <button onClick={() => {
+                                                    setShowPopup(false)
+                                                    setselectedrowid("")
+                                                    setimage("")
+                                                }} type='reset' className="btn bg-danger text-light">
                                                     Cancel
                                                 </button>
                                             </div>

@@ -15,7 +15,7 @@ function SubService() {
     const [isloadingUpdateBTN, setisloadingUpdateBTN] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
-    const [hideformtitle, sethideformtitle] = useState("Open");
+    const [hideformtitle, sethideformtitle] = useState("New");
 
     const [selectedrowid, setselectedrowid] = useState("");
 
@@ -42,7 +42,7 @@ function SubService() {
     function hideform_action() {
         if (hideform === true) {
             sethideform(false)
-            sethideformtitle("Open");
+            sethideformtitle("New");
         } else {
             sethideform(true)
             sethideformtitle("Close");
@@ -286,12 +286,29 @@ function SubService() {
                                 <label>Description*</label>
                                 <input type='text' placeholder='Enter Name' onChange={(e) => setdescription(e.target.value)} />
                             </div>
+                            <div className='col-6'>
+                                <div className='col-6'>
+                                    {image === "" ?
+                                        <h1></h1>
+                                        : <img
+                                            src={URL.createObjectURL(image)}
+                                            width={120}
+                                            height={120}
+                                            alt=''
+                                        />
+                                    }
+                                </div>
+                            </div>
                         </div>
                         <div id='form-rows' className='row'>
                             <div className='col-4'>
                                 <div className='form-btns'>
                                     <button onClick={handler} type="submit" className='btn bg-success text-light'>{isloadingBTN ? 'Savings...' : 'Save'}</button>
-                                    <button className='btn bg-danger text-light'>Cancel</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        sethideform(false);
+                                        sethideformtitle("New");
+                                    }} type='reset' className='btn bg-danger text-light'>Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -321,8 +338,9 @@ function SubService() {
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Price</th>
                                         <th>Description</th>
-                                        <th>Service ID</th>
+                                        <th>Category</th>
                                         <th>Secondry Image</th>
                                         <th>Action</th>
                                     </tr>
@@ -336,6 +354,7 @@ function SubService() {
                                             <tr key={item.sub_service_id}>
                                                 <td>{item.sub_service_id}</td>
                                                 <td>{item.sub_service}</td>
+                                                <td>{item.price}</td>
                                                 <td>
                                                     {isExpanded ? text : text.slice(0, maxLength) + "... "}
                                                     <span
@@ -347,7 +366,7 @@ function SubService() {
                                                         {isExpanded ? "See less" : "See more"}
                                                     </span>
                                                 </td>
-                                                <td>{item.service_id}</td>
+                                                <td>{item.name}</td>
                                                 <td>
                                                     <img
                                                         src={`https://back-end-for-xirfadsan.onrender.com/api/subservices/image/${item.sub_service_id}`}
@@ -363,7 +382,6 @@ function SubService() {
                                                             setservice_id(item.name);
                                                             setprice(item.price);
                                                             setdescription(item.description);
-                                                            setimage(item.image);
                                                             setShowPopup(true);
                                                         }}
                                                             id='btn-table-edit' className='btn text-success'><BiEdit />
@@ -485,12 +503,32 @@ function SubService() {
                                                 <label>Description*</label>
                                                 <input type='text' placeholder='Enter Name' value={description} onChange={(e) => setdescription(e.target.value)} />
                                             </div>
+                                            <div className='col-6'>
+                                                {image === "" ?
+                                                    <img
+                                                        src={`https://back-end-for-xirfadsan.onrender.com/api/subservices/image/${selectedrowid}`}
+                                                        width={120}
+                                                        height={120}
+                                                        alt=''
+                                                    />
+                                                    : <img
+                                                        src={URL.createObjectURL(image)}
+                                                        width={70}
+                                                        height={70}
+                                                        alt=''
+                                                    />
+                                                }
+                                            </div>
                                         </div>
                                         <div id='form-rows' className='row'>
                                             <div className='col-4'>
                                                 <div className='form-btns'>
                                                     <button onClick={handelupdate} type="submit" className='btn bg-primary text-light'>{isloadingUpdateBTN ? 'Updating...' : 'Update'}</button>
-                                                    <button onClick={() => setShowPopup(false)} className="btn bg-danger text-light">
+                                                    <button onClick={() => {
+                                                        setShowPopup(false);
+                                                        setselectedrowid("")
+                                                        setimage("")
+                                                    }} type='reset' className="btn bg-danger text-light">
                                                         Cancel
                                                     </button>
                                                 </div>
@@ -503,8 +541,8 @@ function SubService() {
                     )}
                 </div>
 
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
